@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Produtos</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+    <h2>Lista de Produtos</h2>
+
+    <a class="btn btn-success mb-3" th:href="@{/admin/produtos/novo}">Novo Produto</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="produto : ${produtos}">
+                <td>
+                    <img th:src="@{'/uploads/' + ${produto.imagem}}" width="80" />
+                </td>
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.categoria.nome}"></td>
+                <td th:text="${produto.preco}"></td>
+                <td>
+                    <a th:href="@{/admin/produtos/editar/{id}(id=${produto.id})}" class="btn btn-primary btn-sm">Editar</a>
+                    <a th:href="@{/admin/produtos/excluir/{id}(id=${produto.id})}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Deseja excluir este produto?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

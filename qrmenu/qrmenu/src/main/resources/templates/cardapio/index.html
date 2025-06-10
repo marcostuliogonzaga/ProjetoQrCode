@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${empresa.nome} + ' | Cardápio'">Cardápio</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <h1 th:text="${empresa.nome}">Nome da Empresa</h1>
+
+    <div th:each="categoria : ${categorias}">
+        <h2 th:text="${categoria.nome}">Categoria</h2>
+        <ul>
+            <li th:each="produto : ${produtos}" th:if="${produto.categoria.id} == ${categoria.id}">
+                <img th:src="@{'/uploads/' + ${produto.imagemUrl}}" width="100"/>
+                <h3 th:text="${produto.nome}"></h3>
+                <p th:text="${produto.descricao}"></p>
+                <strong th:text="'R$ ' + ${produto.preco}"></strong>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

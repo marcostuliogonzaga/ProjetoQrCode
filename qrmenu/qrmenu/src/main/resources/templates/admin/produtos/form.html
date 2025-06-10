@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Produto</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+    <h2 th:text="${produto.id == null} ? 'Novo Produto' : 'Editar Produto'"></h2>
+
+    <form th:action="@{/admin/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="mb-3">
+            <label>Nome</label>
+            <input type="text" th:field="*{nome}" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Descrição</label>
+            <textarea th:field="*{descricao}" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Preço</label>
+            <input type="number" step="0.01" th:field="*{preco}" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Categoria</label>
+            <select th:field="*{categoria.id}" class="form-control">
+                <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nome}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Imagem</label>
+            <input type="file" name="imagem" class="form-control" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a th:href="@{/admin/produtos}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</body>
+</html>
